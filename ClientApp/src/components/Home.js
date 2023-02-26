@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TenantDetailCard } from "./TenantDetail"
+import { TenantDetailCard } from "./TenantDetailCard"
 import { Grid } from '@mui/material';
 
 export class Home extends Component {

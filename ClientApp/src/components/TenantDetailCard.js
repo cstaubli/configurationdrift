@@ -11,6 +11,7 @@ import Moment from 'moment';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 export class TenantDetailCard extends Component {
+    // https://mui.com/material-ui/react-card/
     static displayName = TenantDetailCard.name;
 
     constructor(props) {
