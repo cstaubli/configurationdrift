@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import { red, grey, green } from '@mui/material/colors';
 import Typography from '@mui/material/Typography';
 import Moment from 'moment';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 export class TenantDetailCard extends Component {
     static displayName = TenantDetailCard.name;
@@ -26,21 +30,35 @@ export class TenantDetailCard extends Component {
     static rendercard(td) {
         return (
             <div>
-                <Card sx={{ backgroundColor: td.overallStatus }} >
+                <Card sx={{ bgcolor: grey[50] }} >
+                    <CardHeader
+                        avatar={
+                            <Avatar sx={{ bgcolor: td.overallStatus }} aria-label="recipe">
+                                {td.name.substring(0, 1).toUpperCase()}
+                            </Avatar>
+                        }
+                        action={
+                            <IconButton aria-label="settings">
+                                <MoreVertIcon />
+                            </IconButton>
+                        }
+                        title={td.name.substring(0, td.name.indexOf("."))}
+                        subheader={Moment(td.lastChecked).format('MMMM DD, yyyy HH:mm')}
+                    />
+                    <CardMedia
+                        component="img"
+                        height="190"
+                        image="https://www.enowsoftware.com/hubfs/Azure-9.png"
+                        alt="AzureAD"
+                    />
                     <CardContent>
                         <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
-                            {td.name}
+                            Tenant: {td.name}
                         </Typography>
-                        <Typography variant="h5" component="div">
-                            Overall Status: {td.overallStatus}
-                        </Typography>
-                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                            Last Checked: {Moment(td.lastChecked).format('yyyy-MM-DD HH:mm')}
+                        <Typography variant="body2" color="text.secondary">
+                            Overall status: {td.overallStatus}
                         </Typography>
                     </CardContent>
-                    <CardActions>
-                        <Button size="small">Learn More</Button>
-                    </CardActions>
                 </Card>
             </div>
         );

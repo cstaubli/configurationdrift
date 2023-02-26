@@ -24,7 +24,7 @@ public class TenantController : ControllerBase
         return Enumerable.Range(1, 5).Select(index => new TenantDetail
         {
             Id = index,
-            Name = $"Tenant {index}guguuuus.onmicrosoft.com",
+            Name = $"{(char)(index * 2 + 98)}orix.onmicrosoft.com",
             LastChecked = DateTime.Now.AddHours(-index),
             OverallStatus = (index % 2 == 0 ? "red" : "green")
         })
