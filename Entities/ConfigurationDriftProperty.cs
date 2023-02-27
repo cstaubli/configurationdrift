@@ -1,5 +1,8 @@
 namespace configurationdrift.Entities;
 
+/// <summary>
+/// Property that differs between source and destination
+/// </summary>
 public class ConfigurationDriftProperty
 {
     /// <summary>

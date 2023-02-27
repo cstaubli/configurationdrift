@@ -18,8 +18,7 @@ public class ConfigurationDriftRoot
     public string? KeyValue { get; set; }
 
     /// <summary>
-    /// List of configuration drifts properties
+    /// List of properties that differs between source and destination
     /// </summary>
-    /// <value></value>
     public List<ConfigurationDriftProperty>? Properties { get; set; }
 }
