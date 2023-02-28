@@ -22,16 +22,19 @@ export function TenantDetail(props) {
     }
     */
 
-    let name, overallStatus;
+    let name, overallStatus, lastChecked, drifts;
     tenantdata.forEach(element => {
         name = element.name
         overallStatus = element.overallStatus;
-        console.log(element);
+        lastChecked = element.lastChecked;
+        drifts = element.drifts;
     });
 
     return (
         <div>
             {name}
+            {overallStatus}
+            {lastChecked}
         </div>
     );
 }
