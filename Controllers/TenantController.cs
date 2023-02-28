@@ -40,7 +40,7 @@ public class TenantController : ControllerBase
             Name = $"Tenant {id}.onmicrosoft.com",
             LastChecked = DateTime.Now.AddHours(-id),
             OverallStatus = "green",
-            Drifts = des
+            Drifts = des,
         })
         .ToArray();
     }

@@ -1,30 +1,37 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 
-export function TenantDetail() {
+export function TenantDetail(props) {
     let { id } = useParams("id");
-    const [fetchedData, setFetchedData] = useState([]);
+    const [tenantdata, setTenantdata] = useState([])
 
-    if (!id) {
-        return "No id found"
+    useEffect(() => {
+        async function getData() {
+            const response = await fetch(`tenant/${id}`);
+            const data = await response.json();
+            setTenantdata(data);
+        }
+        getData();
+    }, [])
+
+    /*
+    const getTenantData = async () => {
+        const response = await fetch(`tenant/${id}`);
+        const data = await response.json();
+        setTenantdata(data);
     }
+    */
 
-    fetchTenantData(id)
-        .then((tds) => {
-            let td = tds[0]
-            console.log(td.drifts);
-        })
+    let name, overallStatus;
+    tenantdata.forEach(element => {
+        name = element.name
+        overallStatus = element.overallStatus;
+        console.log(element);
+    });
 
     return (
         <div>
-            {id}
+            {name}
         </div>
     );
-
-}
-
-async function fetchTenantData(tenantid) {
-    const response = await fetch(`tenant/${tenantid}`)
-    const data = await response.json();
-    return data;
 }
