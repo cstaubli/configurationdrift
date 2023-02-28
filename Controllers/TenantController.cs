@@ -1,4 +1,6 @@
+using configurationdrift.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace configurationdrift.Controllers;
 
@@ -6,11 +8,6 @@ namespace configurationdrift.Controllers;
 [Route("[controller]")]
 public class TenantController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
     private readonly ILogger<TenantController> _logger;
 
     public TenantController(ILogger<TenantController> logger)
@@ -34,12 +31,16 @@ public class TenantController : ControllerBase
     [HttpGet("/Tenant/{id:int}")]
     public IEnumerable<TenantDetail> Get(int id)
     {
+        var json = System.IO.File.ReadAllText("/home/cstaubli/oxydelta.json");
+        var des = JsonConvert.DeserializeObject<List<ConfigurationDriftRoot>>(json);
+        _logger.Log(LogLevel.Information, des?.Count.ToString());
         return Enumerable.Range(1, 1).Select(index => new TenantDetail
         {
             Id = index,
             Name = $"Tenant {id}.onmicrosoft.com",
             LastChecked = DateTime.Now.AddHours(-id),
-            OverallStatus = "green"
+            OverallStatus = "green",
+            Drifts = des
         })
         .ToArray();
     }
