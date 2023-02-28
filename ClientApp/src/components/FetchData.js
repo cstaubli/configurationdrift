@@ -13,7 +13,6 @@ export class FetchData extends Component {
     }
 
     static renderForecastsTable(forecasts) {
-        console.log("FC", forecasts);
         return (
             <table className='table table-striped' aria-labelledby="tabelLabel">
                 <thead>

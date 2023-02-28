@@ -20,7 +20,6 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
     public IEnumerable<WeatherForecast> Get()
     {
         return Enumerable.Range(1, 10).Select(index => new WeatherForecast

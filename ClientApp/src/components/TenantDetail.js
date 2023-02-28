@@ -1,40 +1,65 @@
-import React, { useEffect, useState } from 'react'
+import React, { Component } from 'react'
 import { useParams } from "react-router-dom";
 
-export function TenantDetail(props) {
-    let { id } = useParams("id");
-    const [tenantdata, setTenantdata] = useState([])
+function withParams(Component) {
+    return (props) => <Component {...props} params={useParams()} />;
+}
 
-    useEffect(() => {
-        async function getData() {
-            const response = await fetch(`tenant/${id}`);
-            const data = await response.json();
-            setTenantdata(data);
-        }
-        getData();
-    }, [])
+class TenantDetail extends Component {
+    static displayName = TenantDetail.name;
 
-    /*
-    const getTenantData = async () => {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tenantdata: [],
+            loading: true,
+        };
+    }
+
+    componentDidMount() {
+        this.populateTenantData(this.props.params.id);
+    }
+
+    static renderTenantData(tenantdata) {
+        return (
+            <table className='table table-striped' aria-labelledby="tabelLabel">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>LastChecked</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tenantdata.map(td =>
+                        <tr key={td.id}>
+                            <td>{td.name}</td>
+                            <td>{td.lastChecked}</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        );
+    }
+
+    render() {
+        let contents = this.state.loading
+            ? <p><em>Loading...</em></p>
+            : TenantDetail.renderTenantData(this.state.tenantdata);
+
+        return (
+            <div>
+                <h1 id="tabelLabel">{this.state.tenantname}</h1>
+                <p>This component demonstrates fetching data from the server.</p>
+                {contents}
+            </div>
+        );
+    }
+
+    async populateTenantData(id) {
         const response = await fetch(`tenant/${id}`);
         const data = await response.json();
-        setTenantdata(data);
+        this.setState({ tenantdata: data, loading: false });
     }
-    */
-
-    let name, overallStatus, lastChecked, drifts;
-    tenantdata.forEach(element => {
-        name = element.name
-        overallStatus = element.overallStatus;
-        lastChecked = element.lastChecked;
-        drifts = element.drifts;
-    });
-
-    return (
-        <div>
-            {name}
-            {overallStatus}
-            {lastChecked}
-        </div>
-    );
 }
+
+export default withParams(TenantDetail);

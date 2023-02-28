@@ -1,7 +1,7 @@
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
-import { TenantDetail } from "./components/TenantDetail"
+import TenantDetail from "./components/TenantDetail"
 
 const AppRoutes = [
     {
@@ -17,7 +17,7 @@ const AppRoutes = [
         element: <FetchData />
     },
     {
-        path: '/tenantdetail/:id',
+        path: '/guguseli/:id',
         element: <TenantDetail />
     }
 ];

@@ -32,7 +32,7 @@ export class TenantDetailCard extends Component {
     static rendercard(td) {
         return (
             <div>
-                <Link to={`/tenantdetail/${td.id}`}>
+                <Link to={`/guguseli/${td.id}`}>
                     <Card sx={{ bgcolor: grey[50] }} >
                         <CardHeader
                             avatar={
