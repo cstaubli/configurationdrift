@@ -4,21 +4,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace configurationdrift.Controllers;
 
+// https://medium.com/geekculture/how-to-add-jwt-authentication-to-an-asp-net-core-api-84e469e9f019
+
 [ApiController]
 [Route("[controller]")]
 public class AuthController : ControllerBase
 {
-    private readonly UserManager<IdentityUser> _userManager;
-
-    private readonly UsersContext _context;
+    //private readonly UsersContext _context;
     private readonly TokenService _tokenService;
-    public AuthController(UserManager<IdentityUser> userManager, UsersContext context, TokenService tokenService)
+
+    public AuthController(TokenService tokenService)
     {
-        _userManager = userManager;
-        _context = context;
         _tokenService = tokenService;
     }
 
+    /*
     [HttpPost]
     [Route("register")]
     public async Task<IActionResult> Register(RegistrationRequest request)
@@ -42,16 +42,18 @@ public class AuthController : ControllerBase
         }
         return BadRequest(ModelState);
     }
+    */
 
     [HttpPost]
     [Route("login")]
-    public async Task<ActionResult<AuthResponse>> Authenticate([FromBody] AuthRequest request)
+    public AuthResponse Authenticate([FromBody] AuthRequest request)
     {
+        /*
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
-
+        
         var managedUser = await _userManager.FindByEmailAsync(request.Email);
         if (managedUser == null)
         {
@@ -62,10 +64,19 @@ public class AuthController : ControllerBase
         {
             return BadRequest("Bad credentials");
         }
+        
         var userInDb = _context.Users.FirstOrDefault(u => u.Email == request.Email);
         if (userInDb is null)
             return Unauthorized();
+        */
+
+        var userInDb = new IdentityUser();
+        userInDb.UserName = request.Email;
+        userInDb.Email = request.Email;
+
         var accessToken = _tokenService.CreateToken(userInDb);
+
+        /*
         await _context.SaveChangesAsync();
         return Ok(new AuthResponse
         {
@@ -73,5 +84,13 @@ public class AuthController : ControllerBase
             Email = userInDb.Email,
             Token = accessToken,
         });
+        */
+
+        return new AuthResponse
+        {
+            Username = userInDb.UserName,
+            Email = userInDb.Email,
+            Token = accessToken
+        };
     }
 }
