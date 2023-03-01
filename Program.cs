@@ -58,8 +58,6 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-//https://www.infoworld.com/article/3669188/how-to-implement-jwt-authentication-in-aspnet-core-6.html
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
