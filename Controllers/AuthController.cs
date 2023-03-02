@@ -21,8 +21,13 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost]
-    public IResult createToken(User user)
+    public async Task<ActionResult<AuthResponse>> createToken(User user)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         if (user.UserName == "joydip" && user.Password == "joydip123")
         {
             var issuer = _configuration["Jwt:Issuer"];
@@ -49,8 +54,13 @@ public class AuthController : ControllerBase
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var jwtToken = tokenHandler.WriteToken(token);
             var stringToken = tokenHandler.WriteToken(token);
-            return Results.Ok(stringToken);
+            var ar = new AuthResponse
+            {
+                userName = user.UserName,
+                accessToken = stringToken
+            };
+            return Ok(ar);
         }
-        return Results.Unauthorized();
+        return Unauthorized();
     }
 }
