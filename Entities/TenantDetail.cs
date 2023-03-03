@@ -7,5 +7,9 @@ public class TenantDetail
     public DateTime LastChecked { get; set; }
     public string? OverallStatus { get; set; }
 
+    public int numMissing { get; set; }
+
+    public int numDiffs { get; set; }
+
     public List<ConfigurationDriftRoot>? Drifts { get; set; }
 }

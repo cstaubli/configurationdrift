@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
+import Box from "@mui/material/Box"
+import Paper from '@mui/material/Paper';
 import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import { red, grey, green } from '@mui/material/colors';
+import { red, grey, green, yellow } from '@mui/material/colors';
 import Typography from '@mui/material/Typography';
 import Moment from 'moment';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
+import { bgcolor as bcolor } from '@mui/system';
 
 export class TenantDetailCard extends Component {
     // https://mui.com/material-ui/react-card/
@@ -30,41 +33,44 @@ export class TenantDetailCard extends Component {
     }
 
     static rendercard(td) {
+        let bcolor = "";
+        switch (td.overallStatus) {
+            case "red":
+                bcolor = red[300];
+                break;
+
+            case "yellow":
+                bcolor = yellow[300];
+                break;
+
+            default:
+                bcolor = green[300];
+                break;
+        }
         return (
             <div>
                 <Link to={`/guguseli/${td.id}`}>
-                    <Card sx={{ bgcolor: grey[50] }} >
+                    <Card sx={{ bgcolor: bcolor }} >
                         <CardHeader
                             avatar={
-                                <Avatar sx={{ bgcolor: td.overallStatus }} aria-label="recipe">
+                                <Avatar sx={{ bgcolor: grey[700] }} aria-label="recipe">
                                     {td.name.substring(0, 1).toUpperCase()}
                                 </Avatar>
                             }
-                            action={
-                                <IconButton aria-label="settings">
-                                    <MoreVertIcon />
-                                </IconButton>
-                            }
-                            title={td.name.substring(0, td.name.indexOf("."))}
-                            subheader={Moment(td.lastChecked).format('MMMM DD, yyyy HH:mm')}
-                        />
-                        <CardMedia
-                            component="img"
-                            height="190"
-                            image="https://www.enowsoftware.com/hubfs/Azure-9.png"
-                            alt="AzureAD"
+                            title={td.name}
+                            subheader={Moment(td.lastChecked).format('yyyy-MM-DD HH:mm')}
                         />
                         <CardContent>
-                            <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
-                                Tenant: {td.name}
+                            <Typography variant="body2" color="text.secondary">
+                                Number of Missing Configurations: {td.numMissing}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                Overall status: {td.overallStatus}
+                                Number of different configurations: {td.numDiffs}
                             </Typography>
                         </CardContent>
                     </Card>
                 </Link>
-            </div>
+            </div >
         );
     }
 }
