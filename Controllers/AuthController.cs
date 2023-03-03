@@ -23,6 +23,8 @@ public class AuthController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<AuthResponse>> createToken(User user)
     {
+        _logger.LogDebug("createToken called");
+
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
