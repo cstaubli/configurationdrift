@@ -8,6 +8,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Swal from 'sweetalert2'
 
 export class Login extends Component {
     static displayName = Login.name;
@@ -43,6 +44,11 @@ export class Login extends Component {
             localStorage.setItem('user', JSON.stringify(response['userName']));
             window.location.href = "/";
         } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Login failed',
+                text: 'Username or bad password',
+            })
         }
     }
 
