@@ -1,4 +1,5 @@
 using configurationdrift.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -16,6 +17,7 @@ public class TenantController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public IEnumerable<TenantDetail> Get()
     {
         return Enumerable.Range(1, 5).Select(index => new TenantDetail
@@ -29,6 +31,7 @@ public class TenantController : ControllerBase
     }
 
     [HttpGet("/Tenant/{id:int}")]
+    [Authorize]
     public IEnumerable<TenantDetail> Get(int id)
     {
         _logger.Log(LogLevel.Information, $"Get(int id) => id:{id} called");

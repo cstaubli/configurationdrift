@@ -40,7 +40,13 @@ export class Home extends Component {
     }
 
     async populateCardData() {
-        const response = await fetch('tenant')
+        const response = await fetch('tenant', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+            },
+        })
         const data = await response.json();
         this.setState({ tenantdata: data, loading: false })
     }

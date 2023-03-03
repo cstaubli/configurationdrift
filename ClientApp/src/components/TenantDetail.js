@@ -56,7 +56,13 @@ class TenantDetail extends Component {
     }
 
     async populateTenantData(id) {
-        const response = await fetch(`tenant/${id}`);
+        const response = await fetch(`tenant/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+            },
+        })
         const data = await response.json();
         this.setState({ tenantdata: data, loading: false });
     }
