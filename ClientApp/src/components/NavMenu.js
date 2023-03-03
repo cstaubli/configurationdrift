@@ -21,6 +21,12 @@ export class NavMenu extends Component {
         });
     }
 
+    toggleLogout() {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("user");
+        window.location.href = "/login";
+    }
+
     render() {
         return (
             <header>
@@ -31,6 +37,15 @@ export class NavMenu extends Component {
                         <ul className="navbar-nav flex-grow">
                             <NavItem>
                                 <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} className="text-dark" to="/login">Login</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} onClick={this.toggleLogout} className="text-dark" to="/#">Logout</NavLink>
                             </NavItem>
                         </ul>
                     </Collapse>

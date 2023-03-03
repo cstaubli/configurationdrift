@@ -2,6 +2,7 @@ import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import TenantDetail from "./components/TenantDetail"
+import { Login } from "./components/login.component"
 
 const AppRoutes = [
     {
@@ -19,6 +20,10 @@ const AppRoutes = [
     {
         path: '/guguseli/:id',
         element: <TenantDetail />
+    },
+    {
+        path: '/login',
+        element: <Login />
     }
 ];
 

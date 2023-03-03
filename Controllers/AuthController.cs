@@ -23,14 +23,14 @@ public class AuthController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<AuthResponse>> createToken(User user)
     {
-        _logger.LogDebug("createToken called");
+        _logger.Log(LogLevel.Information, $"createToken called {user.username}, {user.password}");
 
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
 
-        if (user.UserName == "joydip" && user.Password == "joydip123")
+        if (user.username == "joydip" && user.password == "joydip123")
         {
             var issuer = _configuration["Jwt:Issuer"];
             var audience = _configuration["Jwt:Audience"];
@@ -40,8 +40,8 @@ public class AuthController : ControllerBase
                 Subject = new ClaimsIdentity(new[]
                 {
                 new Claim("Id", Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Email, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Sub, user.username),
+                new Claim(JwtRegisteredClaimNames.Email, user.username),
                 new Claim(JwtRegisteredClaimNames.Jti,
                 Guid.NewGuid().ToString())
              }),
@@ -58,7 +58,7 @@ public class AuthController : ControllerBase
             var stringToken = tokenHandler.WriteToken(token);
             var ar = new AuthResponse
             {
-                userName = user.UserName,
+                userName = user.username,
                 accessToken = stringToken
             };
             return Ok(ar);

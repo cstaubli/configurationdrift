@@ -31,9 +31,9 @@ public class TenantController : ControllerBase
     [HttpGet("/Tenant/{id:int}")]
     public IEnumerable<TenantDetail> Get(int id)
     {
+        _logger.Log(LogLevel.Information, $"Get(int id) => id:{id} called");
         var json = System.IO.File.ReadAllText("/home/cstaubli/oxydelta.json");
         var des = JsonConvert.DeserializeObject<List<ConfigurationDriftRoot>>(json);
-        _logger.Log(LogLevel.Information, des?.Count.ToString());
         return Enumerable.Range(1, 1).Select(index => new TenantDetail
         {
             Id = index,
