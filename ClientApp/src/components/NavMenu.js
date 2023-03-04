@@ -57,9 +57,6 @@ export class NavMenu extends Component {
                                     <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch</NavLink>
-                                </NavItem>
-                                <NavItem>
                                     <NavLink tag={Link} onClick={this.toggleLogout} className="text-dark" to="/#">Logout</NavLink>
                                 </NavItem>
                             </ul>

@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import Box from "@mui/material/Box"
-import Paper from '@mui/material/Paper';
 import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import { red, grey, green, yellow } from '@mui/material/colors';
 import Typography from '@mui/material/Typography';
 import Moment from 'moment';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
-import { bgcolor as bcolor } from '@mui/system';
 
 export class TenantDetailCard extends Component {
     // https://mui.com/material-ui/react-card/
