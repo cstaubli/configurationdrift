@@ -77,7 +77,6 @@ public class TenantController : ControllerBase
             Name = $"{(char)(id * 2 + 98)}orix.onmicrosoft.com",
             LastChecked = DateTime.Now,
             OverallStatus = "red[500]",
-            Drifts = des,
             numMissing = nMissing,
             numDiffs = nDiffs,
         })

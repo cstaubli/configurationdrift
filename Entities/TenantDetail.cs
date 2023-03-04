@@ -11,5 +11,5 @@ public class TenantDetail
 
     public int numDiffs { get; set; }
 
-    public List<ConfigurationDriftRoot>? Drifts { get; set; }
+    public List<ConfigurationDrift>? Drifts { get; set; }
 }
