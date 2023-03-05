@@ -74,33 +74,37 @@ class TenantDetail extends Component {
                 </CardContent>
                 <CardContent>
                     {tdrifts[0].map((row) =>
-                        <TableContainer component={Paper} sx={{ marginTop: 2 }} key={row.resourceName}>
-                            <Table sx={{ width: '100%' }} size="small" aria-label="a dense table">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>ResourceName</TableCell>
-                                        <TableCell>Key</TableCell>
-                                        <TableCell>KeyValue</TableCell>
-                                        <TableCell>Properties</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {row.drifts.map((asd) => (
-                                        <TableRow
-                                            key={`${asd.resourceName}${asd.key}${asd.keyValue}`}
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                        >
-                                            <TableCell>
-                                                {asd.resourceName}
-                                            </TableCell>
-                                            <TableCell>{asd.key}</TableCell>
-                                            <TableCell>{asd.keyValue}</TableCell>
-                                            <TableCell>{asd.properties.map(p => p.parameterName)}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
+                        <div>
+                            <div>
+                                <TableContainer component={Paper} sx={{ marginTop: 2 }} key={row.resourceName}>
+                                    <Table sx={{ width: '100%' }} size="small" aria-label="a dense table">
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell>Name</TableCell>
+                                                <TableCell>Property</TableCell>
+                                                <TableCell>Value(s)</TableCell>
+                                                <TableCell>Source</TableCell>
+                                                <TableCell>Destination</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {row.drifts.map((asd) => (
+                                                <TableRow
+                                                    key={`${asd.resourceName}${asd.key}${asd.keyValue}`}
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                >
+                                                    <TableCell>{asd.keyValue}</TableCell>
+                                                    <TableCell>{asd.key}</TableCell>
+                                                    <TableCell>{asd.properties.map(p => p.parameterName)}</TableCell>
+                                                    <TableCell>{asd.properties.map(p => p.valueInSource)}</TableCell>
+                                                    <TableCell>{asd.properties.map(p => p.valueInDestination)}</TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            </div>
+                        </div>
                     )}
                 </CardContent>
             </Card >
