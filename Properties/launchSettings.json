@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://192.168.64.5:10169",
+      "applicationUrl": "http://192.168.65.3:10169",
       "sslPort": 44340
     }
   },
@@ -11,7 +11,7 @@
     "configurationdrift": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://192.168.64.5:7132;http://192.168.64.5:5123",
+      "applicationUrl": "https://192.168.65.3:7132;http://192.168.65.3:5123",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
