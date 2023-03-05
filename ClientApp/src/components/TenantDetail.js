@@ -73,33 +73,35 @@ class TenantDetail extends Component {
                     </Typography>
                 </CardContent>
                 <CardContent>
-                    <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>ResourceName</TableCell>
-                                    <TableCell>Key</TableCell>
-                                    <TableCell>KeyValue</TableCell>
-                                    <TableCell>Properties</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {tdrifts[0].map((row) => (
-                                    <TableRow
-                                        key={`${row.resourceName}${row.key}${row.keyValue}`}
-                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                    >
-                                        <TableCell component="th" scope="row">
-                                            {row.resourceName}
-                                        </TableCell>
-                                        <TableCell>{row.key}</TableCell>
-                                        <TableCell>{row.keyValue}</TableCell>
-                                        <TableCell>{row.properties.map(p => p.parameterName)}</TableCell>
+                    {tdrifts[0].map((row) =>
+                        <TableContainer component={Paper} sx={{ marginTop: 2 }} key={row.resourceName}>
+                            <Table sx={{ width: '100%' }} size="small" aria-label="a dense table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>ResourceName</TableCell>
+                                        <TableCell>Key</TableCell>
+                                        <TableCell>KeyValue</TableCell>
+                                        <TableCell>Properties</TableCell>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                                </TableHead>
+                                <TableBody>
+                                    {row.drifts.map((asd) => (
+                                        <TableRow
+                                            key={`${asd.resourceName}${asd.key}${asd.keyValue}`}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                        >
+                                            <TableCell>
+                                                {asd.resourceName}
+                                            </TableCell>
+                                            <TableCell>{asd.key}</TableCell>
+                                            <TableCell>{asd.keyValue}</TableCell>
+                                            <TableCell>{asd.properties.map(p => p.parameterName)}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    )}
                 </CardContent>
             </Card >
         );

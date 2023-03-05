@@ -8,15 +8,21 @@ public class ConfigurationDriftProperty
     /// <summary>
     /// Value in Blueprint Tenant
     /// </summary>
-    public List<string>? ValueInDestination { get; set; }
+    public List<string>? valueInDestination { get; set; }
 
     /// <summary>
     /// Name of Property
     /// </summary>
-    public string? ParameterName { get; set; }
+    public string? parameterName { get; set; }
 
     /// <summary>
     /// Value in Destination Tenant
     /// </summary>
-    public List<string>? ValueInSource { get; set; }
+    public List<string>? valueInSource { get; set; }
+
+    public ConfigurationDriftProperty()
+    {
+        valueInDestination = new List<string>();
+        valueInSource = new List<string>();
+    }
 }

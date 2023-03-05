@@ -5,20 +5,25 @@ public class ConfigurationDriftRoot
     /// <summary>
     /// Component name, e.g. AADConditionalAccessPolicy
     /// </summary>
-    public string? ResourceName { get; set; }
+    public string? resourceName { get; set; }
 
     /// <summary>
     /// Type of KeyValue, e.g. DisplayName
     /// </summary>
-    public string? Key { get; set; }
+    public string? key { get; set; }
 
     /// <summary>
     /// Name
     /// </summary>
-    public string? KeyValue { get; set; }
+    public string? keyValue { get; set; }
 
     /// <summary>
     /// List of properties that differs between source and destination
     /// </summary>
-    public List<ConfigurationDriftProperty>? Properties { get; set; }
+    public List<ConfigurationDriftProperty>? properties { get; set; }
+
+    public ConfigurationDriftRoot()
+    {
+        properties = new List<ConfigurationDriftProperty>();
+    }
 }

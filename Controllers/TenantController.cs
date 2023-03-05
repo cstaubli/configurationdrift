@@ -18,67 +18,62 @@ public class TenantController : ControllerBase
 
     [HttpGet]
     [Authorize]
-    public IEnumerable<TenantDetail> Get()
+    public async Task<IEnumerable<TenantDetail>> Get()
     {
-        var json = System.IO.File.ReadAllText("/home/cstaubli/oxydelta.json");
-        var des = JsonConvert.DeserializeObject<List<ConfigurationDriftRoot>>(json);
-        int nMissing = 0, nDiffs = 0;
-        foreach (var item in des)
+        _logger.Log(LogLevel.Information, $"Get() called");
+
+        var dsc = new dscparser.DSCJsonParser("/home/cstaubli/verdelta.json");
+        var parsed = await dsc.Parse();
+
+        var nMissing = 0;
+        var nDrifts = 0;
+
+        foreach (var section in parsed)
         {
-            foreach (var subitem in item.Properties)
-            {
-                if (subitem?.ParameterName.IndexOf("IsInCon") > 0)
-                {
-                    nMissing += 1;
-                }
-                else
-                {
-                    nDiffs += 1;
-                }
-            }
+            nMissing += section.numMissing;
+            nDrifts += section.numDrifts;
         }
+
         return Enumerable.Range(1, 5).Select(index => new TenantDetail
         {
-            Id = index,
-            Name = $"{(char)(index * 2 + 98)}orix.onmicrosoft.com",
-            LastChecked = DateTime.Now.AddHours(-index),
-            OverallStatus = (index % 2 == 0 ? "red" : "yellow"),
+            id = index,
+            name = $"{(char)(index * 2 + 98)}orix.onmicrosoft.com",
+            lastChecked = DateTime.Now.AddHours(-index),
+            overallStatus = (index % 2 == 0 ? "red" : "yellow"),
             numMissing = nMissing,
-            numDiffs = nDiffs,
+            numDiffs = nDrifts,
+            drifts = parsed,
         })
         .ToArray();
     }
 
     [HttpGet("/Tenant/{id:int}")]
     [Authorize]
-    public IEnumerable<TenantDetail> Get(int id)
+    public async Task<IEnumerable<TenantDetail>> Get(int id)
     {
         _logger.Log(LogLevel.Information, $"Get(int id) => id:{id} called");
-        var json = System.IO.File.ReadAllText("/home/cstaubli/oxydelta.json");
-        var des = JsonConvert.DeserializeObject<List<ConfigurationDriftRoot>>(json);
-        int nMissing = 0, nDiffs = 0;
-        foreach (var item in des)
+
+        var dsc = new dscparser.DSCJsonParser("/home/cstaubli/verdelta.json");
+        var parsed = await dsc.Parse();
+
+        var nMissing = 0;
+        var nDrifts = 0;
+
+        foreach (var section in parsed)
         {
-            foreach (var subitem in item.Properties)
-            {
-                if (subitem?.ParameterName.IndexOf("IsInCon") > 0)
-                {
-                    nMissing += 1;
-                }
-                else
-                {
-                    nDiffs += 1;
-                }
-            }
+            nMissing += section.numMissing;
+            nDrifts += section.numDrifts;
         }
+
         return Enumerable.Range(1, 1).Select(index => new TenantDetail
         {
-            Id = index,
-            Name = $"{(char)(id * 2 + 98)}orix.onmicrosoft.com",
-            LastChecked = DateTime.Now,
-            OverallStatus = "red[500]",
+            id = index,
+            name = $"{(char)(id * 2 + 98)}orix.onmicrosoft.com",
+            lastChecked = DateTime.Now,
+            overallStatus = "red[500]",
             numMissing = nMissing,
-            numDiffs = nDiffs,
+            numDiffs = nDrifts,
+            drifts = parsed,
         })
         .ToArray();
     }
