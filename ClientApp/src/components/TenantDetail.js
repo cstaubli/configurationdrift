@@ -76,7 +76,7 @@ class TenantDetail extends Component {
                 <CardContent>
                     {tdrifts[0].map((row) =>
                         <div>
-                            <Chip label={row.sectionName} />
+                            <Chip label={row.sectionName} sx={{ bgcolor: grey[50] }} />
                             <div>
                                 <TableContainer component={Paper} sx={{ marginTop: 2, marginBottom: 3 }} key={row.resourceName}>
                                     <Table sx={{ width: '100%' }} size="small" aria-label="a dense table">
