@@ -13,6 +13,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Chip from '@mui/material/Chip';
 
 function withParams(Component) {
     return (props) => <Component {...props} params={useParams()} />;
@@ -75,8 +76,9 @@ class TenantDetail extends Component {
                 <CardContent>
                     {tdrifts[0].map((row) =>
                         <div>
+                            <Chip label={row.sectionName} />
                             <div>
-                                <TableContainer component={Paper} sx={{ marginTop: 2 }} key={row.resourceName}>
+                                <TableContainer component={Paper} sx={{ marginTop: 2, marginBottom: 3 }} key={row.resourceName}>
                                     <Table sx={{ width: '100%' }} size="small" aria-label="a dense table">
                                         <TableHead>
                                             <TableRow>
