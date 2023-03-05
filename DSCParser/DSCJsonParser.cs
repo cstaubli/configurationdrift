@@ -14,7 +14,7 @@ public class DSCJsonParser
         _jsonfilepath = jsonfilepath;
     }
 
-    async public Task<List<ConfigurationDrift>> Parse()
+    async public Task<List<ConfigurationDrift>> ParseAsync()
     {
         if (!(File.Exists(_jsonfilepath)))
         {

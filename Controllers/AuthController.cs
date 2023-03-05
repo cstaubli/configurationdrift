@@ -21,7 +21,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<AuthResponse>> createToken(User user)
+    public async Task<ActionResult<AuthResponse>> createTokenAsync(User user)
     {
         _logger.Log(LogLevel.Information, $"createToken called {user.username}, {user.password}");
 

@@ -18,12 +18,12 @@ public class TenantController : ControllerBase
 
     [HttpGet]
     [Authorize]
-    public async Task<IEnumerable<TenantDetail>> Get()
+    public async Task<IEnumerable<TenantDetail>> GetAsync()
     {
         _logger.Log(LogLevel.Information, $"Get() called");
 
         var dsc = new dscparser.DSCJsonParser("/home/cstaubli/verdelta.json");
-        var parsed = await dsc.Parse();
+        var parsed = await dsc.ParseAsync();
 
         var nMissing = 0;
         var nDrifts = 0;
@@ -49,12 +49,12 @@ public class TenantController : ControllerBase
 
     [HttpGet("/Tenant/{id:int}")]
     [Authorize]
-    public async Task<IEnumerable<TenantDetail>> Get(int id)
+    public async Task<IEnumerable<TenantDetail>> GetAsync(int id)
     {
         _logger.Log(LogLevel.Information, $"Get(int id) => id:{id} called");
 
         var dsc = new dscparser.DSCJsonParser("/home/cstaubli/verdelta.json");
-        var parsed = await dsc.Parse();
+        var parsed = await dsc.ParseAsync();
 
         var nMissing = 0;
         var nDrifts = 0;
